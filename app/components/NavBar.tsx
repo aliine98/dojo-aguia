@@ -25,6 +25,7 @@ import React, { useState } from 'react';
 import { theme } from '@/mui-theme.config';
 import Image from 'next/image';
 import { ExpandMore } from '@mui/icons-material';
+import NextLink from 'next/link';
 
 export default function NavBar() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -66,7 +67,7 @@ export default function NavBar() {
             <Button type='submit' variant='contained' size='small' sx={{ mb: 1 }}>
                 Entrar
             </Button>
-            <Link href='/recuperar-senha' variant='body2'>
+            <Link component={NextLink} href='/recuperar-senha' variant='body2'>
                 Esqueceu sua senha?
             </Link>
         </FormControl>
@@ -90,7 +91,7 @@ export default function NavBar() {
                                             {item.options.map(option => {
                                                 return (
                                                     <ListItem key={option.name} disablePadding onClick={handleDrawerToggle}>
-                                                        <ListItemButton LinkComponent={Link} href={option.path} sx={{ textAlign: 'center' }}>
+                                                        <ListItemButton component={NextLink} href={option.path} sx={{ textAlign: 'center' }}>
                                                             <ListItemText primary={option.name} />
                                                         </ListItemButton>
                                                     </ListItem>
@@ -103,7 +104,7 @@ export default function NavBar() {
                         </ListItem>
                     ) : (
                         <ListItem key={item.name} disablePadding onClick={handleDrawerToggle}>
-                            <ListItemButton LinkComponent={Link} href={item.path} sx={{ textAlign: 'center' }}>
+                            <ListItemButton component={NextLink} href={item.path} sx={{ textAlign: 'center' }}>
                                 <ListItemText primary={item.name} />
                             </ListItemButton>
                         </ListItem>
@@ -166,7 +167,7 @@ export default function NavBar() {
                                                 {item.options!.map(option => (
                                                     <ListItem key={option.name} disablePadding>
                                                         <ListItemButton
-                                                            LinkComponent={Link}
+                                                            component={NextLink}
                                                             href={option.path}
                                                             sx={{ textAlign: 'center' }}
                                                             onClick={handlePopoverClose}>
@@ -178,7 +179,7 @@ export default function NavBar() {
                                         </Popover>
                                     </>
                                 ) : (
-                                    <Button size='large' LinkComponent={Link} href={item.path} key={item.name} sx={{ color: '#fff' }}>
+                                    <Button size='large' component={NextLink} href={item.path} key={item.name} sx={{ color: '#fff' }}>
                                         {item.name}
                                     </Button>
                                 );
