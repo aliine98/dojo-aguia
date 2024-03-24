@@ -9,15 +9,12 @@ import {
     Container,
     Divider,
     Drawer,
-    FormControl,
     IconButton,
-    Link,
     List,
     ListItem,
     ListItemButton,
     ListItemText,
     Popover,
-    TextField,
     ThemeProvider,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -26,6 +23,7 @@ import { theme } from '@/mui-theme.config';
 import Image from 'next/image';
 import { ExpandMore } from '@mui/icons-material';
 import NextLink from 'next/link';
+import LoginForm from './LoginForm';
 
 export default function NavBar() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -60,22 +58,9 @@ export default function NavBar() {
         { name: 'Contato', path: '/contato' },
     ];
 
-    const loginForm = (
-        <FormControl component='form' onSubmit={e => (e.target as HTMLFormElement).preventDefault()}>
-            <TextField type='email' label='Email' size='small' variant='standard' sx={{ mb: 1, mt: 1 }} required />
-            <TextField type='password' label='Senha' size='small' variant='standard' sx={{ mb: 1 }} required />
-            <Button type='submit' variant='contained' size='small' sx={{ mb: 1 }}>
-                Entrar
-            </Button>
-            <Link component={NextLink} href='/recuperar-senha' variant='body2'>
-                Esqueceu sua senha?
-            </Link>
-        </FormControl>
-    );
-
     const drawer = (
         <Box sx={{ textAlign: 'center' }}>
-            {loginForm}
+            <LoginForm />
             <Divider sx={{ mt: 1 }} />
             <List>
                 {navItems.map(item => {
@@ -131,13 +116,12 @@ export default function NavBar() {
                             color='inherit'>
                             <MenuIcon />
                         </IconButton>
-                        <Image src='/logo-4.1.png' alt='logo' width={96} height={96} />
+                        <Image src='/logo-4.1.png' alt='logo' width={96} height={96} priority />
                         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                             {navItems.map(item => {
                                 return item.options ? (
-                                    <>
+                                    <Box sx={{ display: 'inline-block', width: 'fit-content' }} key={item.name}>
                                         <Button
-                                            key={item.name}
                                             aria-owns={open ? 'nav-options-popover' : undefined}
                                             aria-controls={open ? 'nav-options-popover' : undefined}
                                             aria-haspopup='true'
@@ -177,7 +161,7 @@ export default function NavBar() {
                                                 ))}
                                             </List>
                                         </Popover>
-                                    </>
+                                    </Box>
                                 ) : (
                                     <Button size='large' component={NextLink} href={item.path} key={item.name} sx={{ color: '#fff' }}>
                                         {item.name}
@@ -185,7 +169,9 @@ export default function NavBar() {
                                 );
                             })}
                         </Box>
-                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>{loginForm}</Box>
+                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <LoginForm />
+                        </Box>
                     </Container>
                 </AppBar>
                 <nav>
