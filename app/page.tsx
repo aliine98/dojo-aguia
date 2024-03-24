@@ -1,7 +1,7 @@
 'use client';
 
 import { theme } from '@/mui-theme.config';
-import { Button, CssBaseline, FormControl, TextField, ThemeProvider, Typography } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 export default function Home() {
     return (
@@ -12,4 +12,3 @@ export default function Home() {
         </>
     );
 }
-
