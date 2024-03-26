@@ -13,9 +13,9 @@ export const signIn = (email: string, password: string, router: AppRouterInstanc
         });
 };
 
-export const sendPasswordReset = (email: string, router: AppRouterInstance, inputRef: React.MutableRefObject<HTMLDivElement>) => {
+export const sendPasswordReset = (email: string, router: AppRouterInstance, inputRef: React.RefObject<HTMLDivElement>) => {
     sendPasswordResetEmail(getAuth(app), email).then(() => {
-        inputRef.current.closest('div')!.querySelector('input')!.value = '';
+        inputRef.current!.closest('div')!.querySelector('input')!.value = '';
         router.refresh();
     });
 };

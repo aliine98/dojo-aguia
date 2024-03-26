@@ -8,7 +8,7 @@ import React, { useRef, useState } from 'react';
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const router = useRouter();
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLDivElement>(null);
 
     return (
         <>
