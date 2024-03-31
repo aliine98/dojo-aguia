@@ -93,7 +93,7 @@ export default function Home() {
                                 </ListItem>
                             </List>
                         </Grid>
-                        <Grid item xs={12} md={4} sx={{ display: 'grid', justifyItems: 'center' }}>
+                        <Grid item xs={12} md={4} sx={{ display: 'grid', placeItems: 'center' }}>
                             <ImageList cols={3} sx={{ mt: '8px' }}>
                                 <ImageListItem key='Subheader' cols={3}>
                                     <ListSubheader sx={{ fontSize: '16px' }}>Últimas fotos:</ListSubheader>
