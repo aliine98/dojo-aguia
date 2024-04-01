@@ -14,12 +14,14 @@ import {
     ImageListItem,
     ListItemIcon,
     ListItemText,
+    Skeleton,
 } from '@mui/material';
 import Hero from './components/Hero';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import { ArrowRight } from '@mui/icons-material';
 import { getNewestPhotos } from '@/services/galeria';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { getDownloadURL } from 'firebase/storage';
 
 export default function Home() {
@@ -96,20 +98,39 @@ export default function Home() {
                         <Grid item xs={12} md={4} sx={{ display: 'grid', placeItems: 'center' }}>
                             <ImageList cols={3} sx={{ mt: '8px' }}>
                                 <ImageListItem key='Subheader' cols={3}>
-                                    <ListSubheader sx={{ fontSize: '16px' }}>Últimas fotos:</ListSubheader>
+                                    <ListSubheader component='span' sx={{ fontSize: '16px' }}>
+                                        Últimas fotos:
+                                    </ListSubheader>
                                 </ImageListItem>
-                                {photoList.map((photo: string, index: number) => (
-                                    <ImageListItem key={index}>
-                                        <Image
-                                            src={photo}
-                                            alt={photo.replace('https://firebasestorage.googleapis.com/v0/b/dojo-aguia.appspot.com/o/galeria%2F', '')}
-                                            width='100'
-                                            height='100'
-                                        />
-                                    </ImageListItem>
-                                ))}
+                                {photoList.length === 0 ? (
+                                    <>
+                                        <ImageListItem key='skeleton-1'>
+                                            <Skeleton animation='wave' variant='rectangular' width='100px' height='100px' />
+                                        </ImageListItem>
+                                        <ImageListItem key='skeleton-2'>
+                                            <Skeleton animation='wave' variant='rectangular' width='100px' height='100px' />
+                                        </ImageListItem>
+                                        <ImageListItem key='skeleton-3'>
+                                            <Skeleton animation='wave' variant='rectangular' width='100px' height='100px' />
+                                        </ImageListItem>
+                                    </>
+                                ) : (
+                                    photoList.map((photo, index) => (
+                                        <ImageListItem key={index}>
+                                            <Image
+                                                src={photo}
+                                                alt={photo.replace(
+                                                    'https://firebasestorage.googleapis.com/v0/b/dojo-aguia.appspot.com/o/galeria%2F',
+                                                    ''
+                                                )}
+                                                width='100'
+                                                height='100'
+                                            />
+                                        </ImageListItem>
+                                    ))
+                                )}
                             </ImageList>
-                            <Button variant='contained' size='small'>
+                            <Button component={NextLink} href='/galeria' variant='contained' size='small'>
                                 Veja mais
                             </Button>
                         </Grid>
