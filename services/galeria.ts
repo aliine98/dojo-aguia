@@ -7,8 +7,9 @@ export const getNewestPhotos = async (): Promise<ListResult> => {
     return await list(galleryRef, { maxResults: 3 });
 };
 
-export const uploadPhoto = async (image: File | null) => {
+export const uploadPhoto = async (image: File | null, maxImageSize: number) => {
     if (image === null) return;
+    if (image.size > maxImageSize) return;
     const imageRef = ref(storage, `galeria/${image?.name}`);
     uploadBytes(imageRef, image).then(() => {
         window.location.reload();
