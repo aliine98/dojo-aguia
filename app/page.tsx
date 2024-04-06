@@ -21,7 +21,7 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import { ArrowRight } from '@mui/icons-material';
 import { getNewestPhotos } from '@/services/galeria';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getDownloadURL } from 'firebase/storage';
 
 export default function Home() {
