@@ -1,6 +1,19 @@
 'use client';
 import { app, storage } from '@/services/firebase';
-import { Grid, Card, Skeleton, CardMedia, Pagination, Container, ThemeProvider, Typography, Box, CssBaseline, CardContent } from '@mui/material';
+import {
+    Grid,
+    Card,
+    Skeleton,
+    Pagination,
+    Container,
+    ThemeProvider,
+    Typography,
+    Box,
+    CssBaseline,
+    CardContent,
+    Dialog,
+    DialogContent,
+} from '@mui/material';
 import { listAll, getDownloadURL, ref } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -12,6 +25,7 @@ export default function Galeria() {
     const [photos, setPhotos] = useState<string[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         const galleryRef = ref(storage, 'galeria');
@@ -24,6 +38,14 @@ export default function Galeria() {
 
     const handleChangePage = (e: React.ChangeEvent<unknown>, page: number) => {
         setCurrentPage(page);
+    };
+
+    const openDialog = () => {
+        setOpen(true);
+    };
+
+    const onCloseDialog = () => {
+        setOpen(false);
     };
 
     const user = getAuth(app).currentUser;
@@ -52,7 +74,11 @@ export default function Galeria() {
                               ))
                             : photos.slice((currentPage - 1) * 20, currentPage * 20).map((foto, index) => (
                                   <Grid item key={index} width={250}>
-                                      <Card sx={{ width: '232px' }}>
+                                      <Card
+                                          sx={{ width: '232px', cursor: 'pointer' }}
+                                          onClick={openDialog}
+                                          aria-label='Abrir imagem'
+                                          aria-controls={'foto-' + index}>
                                           <CardContent>
                                               <Image
                                                   src={foto}
@@ -63,6 +89,11 @@ export default function Galeria() {
                                                   style={{ objectFit: 'cover' }}
                                               />
                                           </CardContent>
+                                          <Dialog open={open} onClose={onCloseDialog} id={'foto-' + index} maxWidth='xl'>
+                                              <DialogContent>
+                                                  <img src={foto} alt='Foto da galeria' style={{ objectFit: 'contain', width: '100%' }} />
+                                              </DialogContent>
+                                          </Dialog>
                                       </Card>
                                   </Grid>
                               ))}
