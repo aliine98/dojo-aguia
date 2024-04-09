@@ -86,21 +86,22 @@ export default function Galeria() {
                             : photos.slice((currentPage - 1) * 20, currentPage * 20).map((foto, index) => (
                                   <Grid item key={index} width={250}>
                                       <Card sx={{ width: '232px', cursor: 'pointer', position: 'relative', overflow: 'initial' }}>
-                                          <IconButton
-                                              sx={{
-                                                  position: 'absolute',
-                                                  top: '-18px',
-                                                  right: '-15px',
-                                                  zIndex: 2,
-                                                  backgroundColor: theme.palette.grey.A700,
-                                                  ':hover': {
-                                                      backgroundColor: theme.palette.error.main,
-                                                  },
-                                              }}
-                                              onClick={() => deleteImage(foto)}
-                                              aria-label='Excluir foto'>
-                                              <DeleteIcon fontSize='inherit' />
-                                          </IconButton>
+                                          {user && (
+                                              <IconButton
+                                                  sx={{
+                                                      position: 'absolute',
+                                                      top: '-16px',
+                                                      right: '-12px',
+                                                      backgroundColor: theme.palette.grey.A700,
+                                                      ':hover': {
+                                                          backgroundColor: theme.palette.error.main,
+                                                      },
+                                                  }}
+                                                  onClick={() => deleteImage(foto)}
+                                                  aria-label='Excluir foto'>
+                                                  <DeleteIcon fontSize='inherit' />
+                                              </IconButton>
+                                          )}
                                           <CardContent>
                                               <Image
                                                   src={foto}
