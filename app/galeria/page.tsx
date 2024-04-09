@@ -13,13 +13,16 @@ import {
     CardContent,
     Dialog,
     DialogContent,
+    IconButton,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { listAll, getDownloadURL, ref } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { theme } from '@/mui-theme.config';
 import { getAuth } from 'firebase/auth';
 import UploadPhotoButton from '../components/UploadPhotoButton';
+import { deletePhoto } from '@/services/galeria';
 
 export default function Galeria() {
     const [photos, setPhotos] = useState<string[]>([]);
@@ -50,6 +53,12 @@ export default function Galeria() {
         setOpen(false);
     };
 
+    const deleteImage = (url: string) => {
+        deletePhoto(url).then(() => {
+            setPhotos(photos.filter((image: string) => image !== url));
+        });
+    };
+
     const user = getAuth(app).currentUser;
 
     return (
@@ -76,7 +85,22 @@ export default function Galeria() {
                               ))
                             : photos.slice((currentPage - 1) * 20, currentPage * 20).map((foto, index) => (
                                   <Grid item key={index} width={250}>
-                                      <Card sx={{ width: '232px', cursor: 'pointer' }}>
+                                      <Card sx={{ width: '232px', cursor: 'pointer', position: 'relative', overflow: 'initial' }}>
+                                          <IconButton
+                                              sx={{
+                                                  position: 'absolute',
+                                                  top: '-18px',
+                                                  right: '-15px',
+                                                  zIndex: 2,
+                                                  backgroundColor: theme.palette.grey.A700,
+                                                  ':hover': {
+                                                      backgroundColor: theme.palette.error.main,
+                                                  },
+                                              }}
+                                              onClick={() => deleteImage(foto)}
+                                              aria-label='Excluir foto'>
+                                              <DeleteIcon fontSize='inherit' />
+                                          </IconButton>
                                           <CardContent>
                                               <Image
                                                   src={foto}
@@ -86,9 +110,6 @@ export default function Galeria() {
                                                   height={200}
                                                   style={{ objectFit: 'cover' }}
                                                   onClick={openDialog}
-                                                  aria-label='Abrir imagem'
-                                                  aria-controls={'foto-' + index}
-                                                  id={'control-' + index}
                                               />
                                           </CardContent>
                                       </Card>
