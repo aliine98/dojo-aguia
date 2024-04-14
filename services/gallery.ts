@@ -1,6 +1,5 @@
 import { list, ref, ListResult, StorageReference, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { storage } from './firebase';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export const getNewestPhotos = async (): Promise<ListResult> => {
     const galleryRef: StorageReference = ref(storage, 'galeria');
