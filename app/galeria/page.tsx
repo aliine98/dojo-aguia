@@ -22,7 +22,7 @@ import Image from 'next/image';
 import { theme } from '@/mui-theme.config';
 import { getAuth } from 'firebase/auth';
 import UploadPhotoButton from '../components/UploadPhotoButton';
-import { deletePhoto } from '@/services/galeria';
+import { deletePhoto } from '@/services/gallery';
 
 export default function Galeria() {
     const [photos, setPhotos] = useState<string[]>([]);

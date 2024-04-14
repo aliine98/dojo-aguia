@@ -1,5 +1,5 @@
 'use client';
-import { uploadPhoto } from '@/services/galeria';
+import { uploadPhoto } from '@/services/gallery';
 import { CloudUpload } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
@@ -14,10 +14,6 @@ export default function UploadPhotoButton() {
 
     const toggleLoading = () => {
         setLoading(prevLoading => !prevLoading);
-        if (loading) {
-            // buttonRef.current!. = 'Adicionando...';
-            console.log(buttonRef.current);
-        }
     };
 
     return (

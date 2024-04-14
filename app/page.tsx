@@ -20,7 +20,7 @@ import Hero from './components/Hero';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { ArrowRight } from '@mui/icons-material';
-import { getNewestPhotos } from '@/services/galeria';
+import { getNewestPhotos } from '@/services/gallery';
 import { useEffect, useState } from 'react';
 import { getDownloadURL } from 'firebase/storage';
 
