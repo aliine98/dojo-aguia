@@ -4,4 +4,5 @@ export interface IStudent {
     photoFile: File;
     photoUrl: string;
     photoName: string;
+    id: string;
 }
