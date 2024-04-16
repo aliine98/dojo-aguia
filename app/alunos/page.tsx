@@ -22,7 +22,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { app } from '@/services/firebase';
 import { IStudent } from '@/model/Student';
-import { getStudents } from '@/services/studentsDb';
+import { deleteStudent, getStudents } from '@/services/studentsDb';
 import EditIcon from '@mui/icons-material/Edit';
 
 export default function AlunosList() {
@@ -85,6 +85,7 @@ export default function AlunosList() {
                                                           backgroundColor: theme.palette.error.main,
                                                       },
                                                   }}
+                                                  onClick={() => deleteStudent(id, photoUrl)}
                                                   aria-label='Excluir foto'>
                                                   <DeleteIcon fontSize='inherit' />
                                               </IconButton>

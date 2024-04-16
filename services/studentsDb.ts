@@ -29,3 +29,8 @@ export const getStudents = async () => {
     });
     return students;
 };
+
+export const deleteStudent = async (id: string, photoUrl: string) => {
+    await deleteDoc(doc(db, 'alunos', id));
+    await deleteObject(ref(storage, photoUrl));
+};
