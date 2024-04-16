@@ -20,3 +20,12 @@ export const addStudent = async (student: IStudent) => {
         });
     });
 };
+
+export const getStudents = async () => {
+    const querySnapshot = await getDocs(collection(db, 'alunos'));
+    const students: IStudent[] = [];
+    querySnapshot.forEach(doc => {
+        students.push(doc.data() as IStudent);
+    });
+    return students;
+};
