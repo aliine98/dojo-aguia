@@ -8,12 +8,10 @@ import Image from 'next/image';
 import EditIcon from '@mui/icons-material/Edit';
 import { IStudent } from '@/model/Student';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function StudentCard({ student }: { student: IStudent }) {
     const { name, belt, photoUrl, id } = student;
     const user = getAuth(app).currentUser;
-    const router = useRouter();
     const [open, setOpen] = useState(false);
     const [btnDisabled, setBtnDisabled] = useState(false);
     const [newStudentInfo, setNewStudentInfo] = useState({ id: id, name: name, belt: belt } as IStudent);
@@ -34,7 +32,7 @@ export default function StudentCard({ student }: { student: IStudent }) {
                         }}
                         onClick={async () => {
                             await deleteStudent(id, photoUrl);
-                            router.refresh();
+                            window.location.reload();
                         }}
                         aria-label='Excluir aluno'>
                         <DeleteIcon fontSize='inherit' />

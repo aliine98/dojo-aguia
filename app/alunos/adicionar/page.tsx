@@ -4,12 +4,10 @@ import { IStudent } from '@/model/Student';
 import { theme } from '@/mui-theme.config';
 import { addStudent } from '@/services/studentsDb';
 import { Button, Card, CardContent, Container, CssBaseline, Grid, MenuItem, TextField, ThemeProvider, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const AddStudent = () => {
     const [student, setStudent] = useState({} as IStudent);
-    const router = useRouter();
     const [btnDisabled, setBtnDisabled] = useState(false);
 
     return (
@@ -81,7 +79,7 @@ const AddStudent = () => {
                                         onClick={async () => {
                                             setBtnDisabled(true);
                                             await addStudent(student);
-                                            router.refresh();
+                                            window.location.reload();
                                         }}>
                                         Adicionar
                                     </Button>
