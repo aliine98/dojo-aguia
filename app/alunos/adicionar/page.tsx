@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 
 const AddStudent = () => {
     const [student, setStudent] = useState({} as IStudent);
+    const [btnDisabled, setBtnDisabled] = useState(false);
 
     return (
         <>
@@ -62,15 +63,24 @@ const AddStudent = () => {
                                     </Typography>
                                     <TextField select value={student.belt} onChange={e => setStudent({ ...student, belt: e.target.value })} required>
                                         <MenuItem value=''>Selecione</MenuItem>
-                                        <MenuItem value='branca'>Branca</MenuItem>
-                                        <MenuItem value='laranja'>Laranja</MenuItem>
-                                        <MenuItem value='azul'>Azul</MenuItem>
-                                        <MenuItem value='amarela'>Amarela</MenuItem>
-                                        <MenuItem value='verde'>Verde</MenuItem>
-                                        <MenuItem value='marrom'>Marrom</MenuItem>
-                                        <MenuItem value='preta'>Preta</MenuItem>
+                                        <MenuItem value='Branca'>Branca</MenuItem>
+                                        <MenuItem value='Laranja'>Laranja</MenuItem>
+                                        <MenuItem value='Azul'>Azul</MenuItem>
+                                        <MenuItem value='Amarela'>Amarela</MenuItem>
+                                        <MenuItem value='Verde'>Verde</MenuItem>
+                                        <MenuItem value='Marrom'>Marrom</MenuItem>
+                                        <MenuItem value='Preta'>Preta</MenuItem>
                                     </TextField>
-                                    <Button size='large' variant='contained' sx={{ mt: 2 }} onClick={() => addStudent(student)}>
+                                    <Button
+                                        size='large'
+                                        variant='contained'
+                                        sx={{ mt: 2 }}
+                                        disabled={btnDisabled}
+                                        onClick={async () => {
+                                            setBtnDisabled(true);
+                                            await addStudent(student);
+                                            window.location.reload();
+                                        }}>
                                         Adicionar
                                     </Button>
                                 </form>

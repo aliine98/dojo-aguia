@@ -2,12 +2,10 @@
 import { theme } from '@/mui-theme.config';
 import { sendPasswordReset } from '@/services/login';
 import { Button, Container, CssBaseline, FormGroup, TextField, ThemeProvider, Typography, FormControl, Card, CardContent, Grid } from '@mui/material';
-import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
-    const router = useRouter();
     const inputRef = useRef<HTMLDivElement>(null);
 
     return (
@@ -33,7 +31,10 @@ export default function ForgotPassword() {
                                         Caso o email esteja correto, receberá um link para redefinir sua senha.
                                     </Typography>
                                     <Button
-                                        onClick={() => sendPasswordReset(email, router, inputRef)}
+                                        onClick={async () => {
+                                            await sendPasswordReset(email, inputRef);
+                                            window.location.reload();
+                                        }}
                                         size='large'
                                         variant='contained'
                                         sx={{ mt: 2 }}>

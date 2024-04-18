@@ -2,12 +2,10 @@
 import { signIn } from '@/services/login';
 import { FormControl, TextField, Button, Link } from '@mui/material';
 import NextLink from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import '../../services/firebase';
 
 export default function LoginForm() {
-    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -32,7 +30,14 @@ export default function LoginForm() {
                     required
                     onChange={e => setPassword(e.target.value)}
                 />
-                <Button variant='contained' size='small' sx={{ mb: 1 }} onClick={() => signIn(email, password, router)}>
+                <Button
+                    variant='contained'
+                    size='small'
+                    sx={{ mb: 1 }}
+                    onClick={async () => {
+                        await signIn(email, password);
+                        window.location.reload();
+                    }}>
                     Entrar
                 </Button>
                 <Link component={NextLink} href='/recuperar-senha' variant='body2'>
