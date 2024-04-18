@@ -17,13 +17,11 @@ import {
 } from '@mui/material';
 import { getAuth } from 'firebase/auth';
 import NextLink from 'next/link';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { app } from '@/services/firebase';
 import { IStudent } from '@/model/Student';
-import { deleteStudent, getStudents } from '@/services/studentsDb';
-import EditIcon from '@mui/icons-material/Edit';
+import { getStudents } from '@/services/studentsDb';
+import StudentCard from '../components/StudentCard';
 
 export default function AlunosList() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -47,12 +45,12 @@ export default function AlunosList() {
         <>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Container sx={{ py: 2 }} maxWidth='lg'>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 4, flexWrap: 'wrap' }}>
+                <Container sx={{ pb: 5 }} maxWidth='lg'>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 3, flexWrap: 'wrap' }}>
                         <Typography variant='h4' component='h1'>
                             Alunos
                         </Typography>
-                        {user && (
+                        {Boolean(user) && (
                             <Button variant='contained' component={NextLink} href='/alunos/adicionar'>
                                 Adicionar novo aluno
                             </Button>
@@ -67,53 +65,14 @@ export default function AlunosList() {
                                               <Skeleton variant='rectangular' animation='wave' width={200} height={200} />
                                               <Skeleton variant='text' animation='wave' />
                                               <Skeleton variant='text' animation='wave' />
+                                              <Skeleton variant='rectangular' width={100} height={30} animation='wave' sx={{ mt: 2 }} />
                                           </CardContent>
                                       </Card>
                                   </Grid>
                               ))
-                            : students.slice((currentPage - 1) * 10, currentPage * 10).map(({ name, belt, photoUrl, id }, index) => (
+                            : students.slice((currentPage - 1) * 10, currentPage * 10).map((student, index) => (
                                   <Grid item key={index} width={250}>
-                                      <Card sx={{ width: '232px', cursor: 'pointer', position: 'relative', overflow: 'initial' }}>
-                                          {user && (
-                                              <IconButton
-                                                  sx={{
-                                                      position: 'absolute',
-                                                      top: '-16px',
-                                                      right: '-12px',
-                                                      backgroundColor: theme.palette.grey.A700,
-                                                      ':hover': {
-                                                          backgroundColor: theme.palette.error.main,
-                                                      },
-                                                  }}
-                                                  onClick={() => deleteStudent(id, photoUrl)}
-                                                  aria-label='Excluir foto'>
-                                                  <DeleteIcon fontSize='inherit' />
-                                              </IconButton>
-                                          )}
-                                          <CardContent>
-                                              <Image
-                                                  src={photoUrl}
-                                                  title={'Foto de ' + name}
-                                                  alt={'Foto de ' + name}
-                                                  width={200}
-                                                  height={200}
-                                                  style={{ objectFit: 'cover' }}
-                                              />
-                                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                  <Typography variant='body1'>Nome: {name}</Typography>
-                                                  <IconButton>
-                                                      <EditIcon />
-                                                  </IconButton>
-                                              </Box>
-                                              <Divider />
-                                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                  <Typography variant='body1'>Faixa: {belt}</Typography>
-                                                  <IconButton>
-                                                      <EditIcon />
-                                                  </IconButton>
-                                              </Box>
-                                          </CardContent>
-                                      </Card>
+                                      <StudentCard student={student} />
                                   </Grid>
                               ))}
                     </Grid>
