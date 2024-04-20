@@ -15,6 +15,8 @@ import {
     ListItemIcon,
     ListItemText,
     Skeleton,
+    Paper,
+    Typography,
 } from '@mui/material';
 import Hero from './components/Hero';
 import Image from 'next/image';
@@ -41,7 +43,7 @@ export default function Home() {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Hero />
-                <Container maxWidth='lg' sx={{ pb: 3 }}>
+                <Container component='section' maxWidth='lg' sx={{ pb: 3 }}>
                     <Grid container>
                         <Grid item xs={12} sm={6} md={4} sx={{ display: 'grid', justifyContent: 'center' }}>
                             <List dense={true}>
@@ -136,6 +138,22 @@ export default function Home() {
                         </Grid>
                     </Grid>
                 </Container>
+                <Paper component='section' elevation={1} sx={{ width: '100%', mt: 5 }}>
+                    <Container maxWidth='lg' sx={{ px: 3, py: 4, textAlign: 'center', justifyContent: 'center' }}>
+                        <Typography variant='h6'>
+                            A Dojo Águia é uma escola de karatê que oferece aulas para crianças, adolescentes e adultos. Nossa missão é proporcionar
+                            aos nossos alunos um ambiente seguro e acolhedor para aprender karatê e desenvolver todo o seu potencial. Oferecemos
+                            diferentes opções de planos para atender às necessidades de todos os alunos.
+                        </Typography>
+                        <Typography variant='h6' sx={{ mb: 3 }}>
+                            Nossos instrutores são experientes e qualificados, e estão sempre buscando se aprimorar. A Dojo Águia é o lugar ideal para
+                            você aprender karatê e melhorar sua forma física, mental e emocional.
+                        </Typography>
+                        <Button component={NextLink} variant='contained' href='/planos' size='large'>
+                            Conheça os planos
+                        </Button>
+                    </Container>
+                </Paper>
             </ThemeProvider>
         </>
     );
