@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 export const metadata: Metadata = {
     title: 'Dojo Águia',
     description: 'Escola de karatê, Dojo Águia',
+    keywords: ['dojo', 'kyokushin', 'karate', 'karatê', 'caratê', 'escola de karatê', 'treinamento'],
 };
 
 export default function RootLayout({
