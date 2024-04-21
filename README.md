@@ -109,7 +109,7 @@ Caso queira utilizar as funcionalidades completas, crie um novo projeto em sua c
 
 ## 📝 Licença
 
-![License](https://img.shields.io/github/license/aliine98/aliine98.github.io?logo=m&style=for-the-badge)
+![License](https://img.shields.io/github/license/aliine98/dojo-aguia?logo=m&style=for-the-badge)
 
 Feito com ❤️ por <a href="https://github.com/aliine98">Aline Bevilacqua</a>!
 
